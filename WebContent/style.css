@@ -1,0 +1,53 @@
+body {
+
+}
+
+#entete {
+	height				:	50px;
+	padding				:	10px 10px 10px 10px;
+	background-color	:	#000099;
+}
+
+#titre {
+	float				:	left;
+	font-size			:	36px;
+	font-weight			:	bold;
+	color				:	#FFFFFF;
+	width				:	50%;	
+}
+
+#connexion {
+	float				:	left;
+	text-align			:	right;
+	width				:	50%;
+	font-family			:	"Arial";
+	font-size			: 	12px;
+	color				:	#FFFFFF;
+}
+
+#connexion a {
+	color				:	#FFFFFF;
+	text-decoration		:	none;
+}
+
+#connexion a:hover {
+	text-decoration		:	underline;
+}
+
+#menu ul{
+	list-style			:	none;
+}
+
+#menu li{
+	display				:	inline;
+	padding-right		:	20px;
+}
+
+#videos table{
+	width				:	700px;
+	border				:	1px solid;
+}
+
+#videos table td{
+	border				:	1px solid;
+}
