@@ -15,19 +15,19 @@ public class Login extends HttpServlet {
         super();
     }
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
-
+    
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String login = request.getParameter("login");
 		String password = request.getParameter("password");
 		
 		if(login.isEmpty() || password.isEmpty()) {
-			request.setAttribute("Erreur", "Vous devez remplir les deux champs");
+			request.setAttribute("erreur", "Vous devez remplir les deux champs");
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		else {
-			// Vérifier identifiants
+			getServletContext().getRequestDispatcher("/formulaireInscription.jsp").forward(request, response);
 		}
 	}
 
