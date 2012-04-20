@@ -316,7 +316,7 @@ h3 {
 
 
 a:link, a:visited {
-	color:#9b251b;
+	color:#FF0000;
 	text-decoration:none;
 }
 
@@ -418,4 +418,13 @@ a img {
 	visibility: hidden;
 	width: 0;
 	height: 0;
+}
+
+#formulaire {
+	margin-left:50px;
+	width:500px;
+}
+
+#formulaire tr {
+	height : 30px;
 }

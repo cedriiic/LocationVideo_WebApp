@@ -16,16 +16,20 @@
 					<table>
 						<tr>
 							<td>Login : </td>
-							<td><input type="text" name="login" />
+							<td><input type="text" name="login" value="<% String login = (String) request.getAttribute("login");
+							if (login != null)
+								out.println(login); %>"/>
 								<% String erreur = (String) request.getAttribute("erreur");
 						      		if (erreur != null) { %>
-						            	<strong><span style="text-indent:5px; color:red; font-weight:bold;"><% out.println(erreur); %></span></strong>
+						            	<strong><span style="color:red; font-weight:bold;"><% out.println(erreur); %></span></strong>
 						      		<% } %>
 						    </td>
 						</tr>
 						<tr>
 							<td>Mot de passe : </td>
-							<td><input type="password" name="password" /></td>
+							<td><input type="password" name="password" <% String password = (String) request.getAttribute("password");
+							if (password != null)
+								out.println(password); %>"/></td>
 						</tr> 
 						<tr>
 							<td><a href="formulaireInscription.jsp">Créer un compte</a></td>

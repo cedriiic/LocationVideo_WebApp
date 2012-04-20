@@ -14,7 +14,7 @@ public class Login extends HttpServlet {
     public Login() {
         super();
     }
-
+    
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	}
     
@@ -23,11 +23,13 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		if(login.isEmpty() || password.isEmpty()) {
+			request.setAttribute("login", login);
+			request.setAttribute("password", password);
 			request.setAttribute("erreur", "Vous devez remplir les deux champs");
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		else {
-			getServletContext().getRequestDispatcher("/formulaireInscription.jsp").forward(request, response);
+			// Faire la connexion
 		}
 	}
 
