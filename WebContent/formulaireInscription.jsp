@@ -1,4 +1,5 @@
 <%@ include file="/header.jsp" %>
+<%@ page import="java.util.List" %>
 
 <% 
 	String nom	 			= (String) request.getAttribute("nom");
@@ -14,10 +15,14 @@
 	String password2		= (String) request.getAttribute("password2");
 	String email			= (String) request.getAttribute("email");
 	
+	//String message = (String) request.getAttribute("message");
+	List<String[]> message = (List<String[]>) request.getAttribute("message");
+	if(message == null) {
+		
 %>
 
 <h1>Création de compte</h1>
-<form method="post" action="/creerCompte">
+<form method="post" action="inscription">
 	<table id="formulaire">
 		<tr>
 			<td>Nom : </td>
@@ -85,4 +90,14 @@
 		</tr>
 	</table>
 </form>
+<% 	}
+	else { %>
+	<h1>aze</h1>
+	<% for(int i=0; i < message.size(); i++) {
+		out.println(message.get(i)[0]+" - "+message.get(i)[1]+" - "+message.get(i)[2]);
+	}
+	%>
+	<a href="index.jsp">Retour à l'accueil</a>
+<%	}
+%>
 <%@ include file="/footer.jsp" %>  

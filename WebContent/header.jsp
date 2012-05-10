@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -11,25 +11,29 @@
 	<div id="topWrapper"> 
 		<div id="topBanner"></div> 
 		<div id="userpanel">
-			<% if(1==1) { %>
+			<% session = request.getSession();
+				String client = (String) session.getAttribute("client");
+				if(client == null) { %>
 				<form method="post" action="login">
 					<table>
 						<tr>
 							<td>Login : </td>
 							<td><input type="text" name="login" value="<% String login = (String) request.getAttribute("login");
-							if (login != null)
-								out.println(login); %>"/>
-								<% String erreur = (String) request.getAttribute("erreur");
-						      		if (erreur != null) { %>
-						            	<strong><span style="color:red; font-weight:bold;"><% out.println(erreur); %></span></strong>
-						      		<% } %>
+							if (login != null) {
+								out.println(login);
+							} %>"/>
+							<% String erreur = (String) request.getAttribute("erreur");
+					      	if (erreur != null) { %>
+					           	<strong><span style="color:red; font-weight:bold;"><%=erreur %></span></strong>
+					      	<% } %>
 						    </td>
 						</tr>
 						<tr>
 							<td>Mot de passe : </td>
-							<td><input type="password" name="password" <% String password = (String) request.getAttribute("password");
-							if (password != null)
-								out.println(password); %>"/></td>
+							<td><input type="password" name="password" value="<% String password = (String) request.getAttribute("password");
+							if(password != null) {
+								out.println(password);
+							} %>"/></td>
 						</tr> 
 						<tr>
 							<td><a href="formulaireInscription.jsp">Créer un compte</a></td>
@@ -39,13 +43,13 @@
 				</form>
 			<% }
 			else { %>
-				Bienvenue, LOGIN A METTRE
+				Bienvenue, <strong><%=client %></strong><br /><br />
 				<table>
 					<tr>
 						<td>Mon panier : X élément(s)</td>
 					</tr>
 					<tr>
-						<td><a href="/panier">Voir le panier</a></td>
+						<td><a href="panier">Voir le panier</a></td>
 					</tr>
 				</table>
 			<% } %>
@@ -74,36 +78,12 @@
     <div id="wrapper"> 
 		<div id="container"> 
 			<div id="content"> 
-				<div style="margin-top:20px;"> 
-					<div class="one_fourth"> 
-						<div class="bloc rounded"> 
-							<h3>Battleship</h3>  
-							<p> 
-								<img src="images/affiches/battleship.jpg" style="float:right;margin:0 0 0 8px" />
-							</p> 
-						</div> 
-					</div>  
-					<div class="one_fourth"> 
-						<div class="bloc rounded"> 
-							<h3>Projet X</h3>  
-							<p> 
-							  <img src="images/affiches/projetx.jpg" style="float:right;margin:0 0 0 8px" />
-							</p> 
-						</div> 
-					</div>  
-					<div class="one_fourth"> 
-						<div class="bloc rounded"> 
-							<h3>John Carter</h3>  
-							<p> 
-							  <img src="images/affiches/johncarter.jpg" style="float:right;margin:0 0 0 8px" />
-							</p> 
-						</div> 
-					</div>  
-					<div class="one_fourth last"> 
-						<div class="bloc rounded"> 
-					    	<h3>The Avengers</h3>  
-					    	<p> 
-					      		<img src="images/affiches/avengers.jpg" style="float:right;margin:0 0 0 8px" />
-					      	</p> 
-					    </div> 
-				  	</div>
+				<div style="margin-top:20px;">
+					<% for(int filmNouveaute = 0; filmNouveaute < 4; filmNouveaute++) { %>
+						<div class="one_fourth"> 
+							<div class="bloc rounded"> 
+								<h3>blabla</h3>  
+								<p><img src="images/affiches/battleship.jpg" style="float:right;margin:0 0 0 8px" /></p> 
+							</div> 
+						</div>  
+					<% } %> 

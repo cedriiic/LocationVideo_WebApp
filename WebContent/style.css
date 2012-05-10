@@ -69,9 +69,10 @@ body {
 
 
 #userpanel {
-	float : left;
-	padding : 10px;
-	color : #CCCCCC;
+	float 			: left;
+	padding-top 	: 20px;
+	padding-left	: 10px;
+	color 			: #CCCCCC;
 }
 
 #topnav {
@@ -248,7 +249,7 @@ body {
 
 .one_fourth {
 	float:left;
-	margin:0 40px 20px 40px;
+	margin:0 35px 20px 35px;
 	width:150px;
 	position:relative;
 }
