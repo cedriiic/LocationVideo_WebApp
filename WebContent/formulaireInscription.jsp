@@ -1,24 +1,21 @@
 <%@ include file="/header.jsp" %>
 <%@ page import="java.util.List" %>
-
 <% 
-	String nom	 			= (String) request.getAttribute("nom");
-	String prenom 			= (String) request.getAttribute("prenom");
-	String datedenaissance 	= (String) request.getAttribute("datedenaissance");
-	String adresse			= (String) request.getAttribute("adresse");
-	String ville			= (String) request.getAttribute("ville");
-	String codepostal 		= (String) request.getAttribute("codepostal");
-	String pays				= (String) request.getAttribute("pays");
-	String telephone		= (String) request.getAttribute("telephone");
-	String login 			= (String) request.getAttribute("login");
-	String password			= (String) request.getAttribute("password");
-	String password2		= (String) request.getAttribute("password2");
-	String email			= (String) request.getAttribute("email");
-	
-	//String message = (String) request.getAttribute("message");
-	List<String[]> message = (List<String[]>) request.getAttribute("message");
-	if(message == null) {
-		
+	String nom	 			= request.getParameter("nom");
+	String prenom 			= request.getParameter("prenom");
+	String datedenaissance 	= request.getParameter("datedenaissance");
+	String adresse			= request.getParameter("adresse");
+	String ville			= request.getParameter("ville");
+	String codepostal 		= request.getParameter("codepostal");
+	String pays				= request.getParameter("pays");
+	String telephone		= request.getParameter("telephone");
+	String password			= request.getParameter("password");
+	String password2		= request.getParameter("password2");
+	String email			= request.getParameter("email");
+	String message 			= request.getParameter("message");
+	String etatInsertion	= request.getParameter("etatInsertion");
+	//List<String[]> message = (List<String[]>) request.getAttribute("message");
+	if(etatInsertion == null || etatInsertion.equals("erreur")) {
 %>
 
 <h1>Création de compte</h1>
@@ -62,12 +59,7 @@
 		<tr>
 			<td>Téléphone : </td>
 			<td><input type="text" name="telephone" value="<% if (telephone != null) out.println(telephone); %>" size="30" /></td>
-		</tr>
-		
-		<tr>
-			<td>Login : </td>
-			<td><input type="text" name="login" value="<% if (login != null) out.println(login); %>" size="30" /></td>
-		</tr>
+		</tr>	
 		
 		<tr>
 			<td>Mot de passe : </td>
@@ -93,10 +85,7 @@
 <% 	}
 	else { %>
 	<h1>aze</h1>
-	<% for(int i=0; i < message.size(); i++) {
-		out.println(message.get(i)[0]+" - "+message.get(i)[1]+" - "+message.get(i)[2]);
-	}
-	%>
+	<%=message %><br /><br />
 	<a href="index.jsp">Retour à l'accueil</a>
 <%	}
 %>

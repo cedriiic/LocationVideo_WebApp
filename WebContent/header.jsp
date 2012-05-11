@@ -12,6 +12,9 @@
 		<div id="topBanner"></div> 
 		<div id="userpanel">
 			<% session = request.getSession();
+				String taille = (String) request.getAttribute("liste");
+				if(taille != null)
+					out.println("taille : "+taille);
 				String client = (String) session.getAttribute("client");
 				if(client == null) { %>
 				<form method="post" action="login">

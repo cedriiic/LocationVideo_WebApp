@@ -21,7 +21,7 @@ import fr.epsi.location.remote.ILocation;
 public class Login extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	public static final String DEFAULT_JNDI_NAME = "LocationVideo_EJB/fr/epsi/location/remote/ILocation/remote";
+	public static final String DEFAULT_JNDI_NAME = "LocationBean/remote";
     private HttpSession session;
 	private ILocation location;
     
@@ -52,10 +52,12 @@ public class Login extends HttpServlet {
 	    		Object obj= context.lookup(DEFAULT_JNDI_NAME);
 	    		location = (ILocation)PortableRemoteObject.narrow(obj, ILocation.class); 
 			        
-	    		if(1 == 1) {
-					Client clientBean = location.getClient(1);
-					location.ajouterClient(clientBean);
-					List<Video> listeVideos = location.getListeVideos();
+	    		//if() {
+					//Client client = location.getClient(1);
+					List<Client> liste = location.getListeClients();
+					session.setAttribute("liste", liste.size());
+					//location.ajouterClient(client);
+					/*List<Video> listeVideos = location.getListeVideos();
 					int indice = 1;
 					
 					for(Video v : listeVideos) {
@@ -64,21 +66,26 @@ public class Login extends HttpServlet {
 						pw.println(indice+") "+v.getTitre() + " - " + v.getDuree());
 						indice++;
 					}
-					request.setAttribute("location", location);
-					session.setAttribute("client", clientBean.getNom());
-					request.setAttribute("listeVideos", listeVideos);
+					request.setAttribute("location", location);*/
+					//session.setAttribute("client", client.getNom());
+					
+					//request.setAttribute("listeVideos", listeVideos);
 					getServletContext().getRequestDispatcher("/listeVideos.jsp").forward(request, response);
-				}
+				/*}
 				else {
 					request.setAttribute("login", login);
 					request.setAttribute("password", password);
 					request.setAttribute("erreur", "Login et/ou mot de passe incorrect");
 					getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-				}
+				}*/
 			}catch(ClassCastException cce){
+				System.out.println("-----------------------------------------------------------");
 				cce.printStackTrace();
+				System.out.println("-----------------------------------------------------------");
 			}catch(NamingException ne){
+				System.out.println("-----------------------------------------------------------");
 				ne.printStackTrace();
+				System.out.println("-----------------------------------------------------------");
 			}
 		}
 	}
