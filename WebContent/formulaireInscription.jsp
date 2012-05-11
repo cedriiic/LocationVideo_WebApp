@@ -21,7 +21,7 @@
 		<h1>Création de compte</h1>
 		
 		<% if(message != null) { %>
-			<span style="color:red; font-size:18px; font-weight:bold;"><%=message %></span><br />
+			<span style="color:red; font-size:18px; font-weight:bold;"><%=message %></span><br /><br />
 		<%} %>
 		
 		<form method="post" action="inscription">
