@@ -36,36 +36,60 @@ public class Inscription extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nom	 			= (String) request.getParameter("nom");
-		String prenom 			= (String) request.getParameter("prenom");
-		String sDatedenaissance = (String) request.getParameter("datedenaissance");
-		Date datedenaissance 	= convertStringToDate(sDatedenaissance);
-		String adresse			= (String) request.getParameter("adresse");
-		String ville			= (String) request.getParameter("ville");
-		String codepostal 		= (String) request.getParameter("codepostal");
-		String pays				= (String) request.getParameter("pays");
-		String telephone		= (String) request.getParameter("telephone");
-		String password			= (String) request.getParameter("password");
-		String password2		= (String) request.getParameter("password2");
-		String email			= (String) request.getParameter("email");
 		
-		try{
-			System.setProperty("java.naming.factory.initial","org.jnp.interfaces.NamingContextFactory");
-    	    System.setProperty(" java.naming.factory.url.pkgs"," org.jboss.naming.org.jnp.interfaces");
-    	    System.setProperty("java.naming.provider.url", "localhost:1099");
-    	    
-			Context context= new InitialContext();
-    		Object obj= context.lookup(DEFAULT_JNDI_NAME);
-    		location = (ILocation)PortableRemoteObject.narrow(obj, ILocation.class);
-    		Client client = new Client(nom, prenom, datedenaissance, adresse, ville, codepostal, pays, telephone, email, password, null);
-    		location.ajouterClient(client);
-    		request.setAttribute("etatInsertion", "ok");
-    		request.setAttribute("message", "Inscription effectuée.");
+		String nom	 			= request.getParameter("nom");
+		String prenom 			= request.getParameter("prenom");
+		String sDatedenaissance = request.getParameter("datedenaissance");
+		String adresse			= request.getParameter("adresse");
+		String ville			= request.getParameter("ville");
+		String codepostal 		= request.getParameter("codepostal");
+		String pays				= request.getParameter("pays");
+		String telephone		= request.getParameter("telephone");
+		String password			= request.getParameter("password");
+		String password2		= request.getParameter("password2");
+		String email			= request.getParameter("email");
+
+		String message = verifierChamps(nom, prenom, sDatedenaissance, adresse, ville, codepostal, pays, telephone, password, password2, email);
+		
+		if(message == null) {
+			Date datedenaissance 	= convertStringToDate(sDatedenaissance);
+			
+			try{
+				System.setProperty("java.naming.factory.initial","org.jnp.interfaces.NamingContextFactory");
+	    	    System.setProperty(" java.naming.factory.url.pkgs"," org.jboss.naming.org.jnp.interfaces");
+	    	    System.setProperty("java.naming.provider.url", "localhost:1099");
+	    	    
+				Context context= new InitialContext();
+	    		Object obj= context.lookup(DEFAULT_JNDI_NAME);
+	    		location = (ILocation)PortableRemoteObject.narrow(obj, ILocation.class);
+	    		Client client = new Client(nom, prenom, datedenaissance, adresse, ville, codepostal, pays, telephone, email, password, null);
+	    		location.ajouterClient(client);
+	    		
+	    		request.setAttribute("etatInsertion", "ok");
+	    		request.setAttribute("message", "Inscription effectuée.");
+	    		getServletContext().getRequestDispatcher("/formulaireInscription.jsp").forward(request, response);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+				request.setAttribute("nom", nom);
+				request.setAttribute("prenom", prenom);
+				request.setAttribute("datedenaissance", sDatedenaissance);
+				request.setAttribute("adresse", adresse);
+				request.setAttribute("ville", ville);
+				request.setAttribute("codepostal", codepostal);
+				request.setAttribute("pays",pays);
+				request.setAttribute("telephone", telephone);
+				request.setAttribute("password", password);
+				request.setAttribute("password2", password2);
+				request.setAttribute("email", email);
+				request.setAttribute("etatInsertion", "erreur");
+				request.setAttribute("message", message);
+			}
 		}
-		catch(Exception e) {
+		else {
 			request.setAttribute("nom", nom);
 			request.setAttribute("prenom", prenom);
-			//request.setAttribute("datedenaissance", datedenaissance);
+			request.setAttribute("datedenaissance", sDatedenaissance);
 			request.setAttribute("adresse", adresse);
 			request.setAttribute("ville", ville);
 			request.setAttribute("codepostal", codepostal);
@@ -75,17 +99,30 @@ public class Inscription extends HttpServlet {
 			request.setAttribute("password2", password2);
 			request.setAttribute("email", email);
 			request.setAttribute("etatInsertion", "erreur");
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("message", message);
 			getServletContext().getRequestDispatcher("/formulaireInscription.jsp").forward(request, response);
 		}
 	}
 
-	private Date convertStringToDate(String sDatedenaissance) {
-		int jour = Integer.valueOf(sDatedenaissance.substring(0, 2)).intValue();
-		int mois = Integer.valueOf(sDatedenaissance.substring(3, 5)).intValue();
-		int annee = Integer.valueOf(sDatedenaissance.substring(6, 10)).intValue();
+	private String verifierChamps(String nom, String prenom, String sDatedenaissance, String adresse, String ville, String codepostal, String pays, String telephone, String password, String password2, String email) {
+		
+		if(nom.isEmpty() || prenom.isEmpty() || sDatedenaissance.isEmpty() || adresse.isEmpty() || ville.isEmpty() || codepostal.isEmpty() || pays.isEmpty() || telephone.isEmpty() || password.isEmpty() || password2.isEmpty() || email.isEmpty())
+			return "Veuillez renseigner tous les champs.";
+		else if(!password.equals(password2))
+			return "Les mots de passes saisis ne sont pas identiques";
+		return null;
+	}
 
-		return new Date(annee, mois, jour);
+	private Date convertStringToDate(String sDatedenaissance) {
+		if(sDatedenaissance.length() == 10) {
+			int jour = Integer.valueOf(sDatedenaissance.substring(0, 2)).intValue();
+			int mois = Integer.valueOf(sDatedenaissance.substring(3, 5)).intValue();
+			int annee = Integer.valueOf(sDatedenaissance.substring(6, 10)).intValue();
+	
+			return new Date(annee, mois, jour);
+		}
+		else
+			return null;
 	}
 
 }
