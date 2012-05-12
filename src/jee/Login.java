@@ -33,59 +33,47 @@ public class Login extends HttpServlet {
 	}
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String login = request.getParameter("login");
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		if(login.isEmpty() || password.isEmpty()) {
-			request.setAttribute("login", login);
+		if(email.isEmpty() || password.isEmpty()) {
+			request.setAttribute("email", email);
 			request.setAttribute("password", password);
 			request.setAttribute("erreur", "Vous devez remplir les deux champs");
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 		else {
-			try {    		
+			try {  		
 				System.setProperty("java.naming.factory.initial","org.jnp.interfaces.NamingContextFactory");
 	    	    System.setProperty(" java.naming.factory.url.pkgs"," org.jboss.naming.org.jnp.interfaces");
 	    	    System.setProperty("java.naming.provider.url", "localhost:1099");
-	    	    
+	    	    				   	    
 				Context context= new InitialContext();
 	    		Object obj= context.lookup(DEFAULT_JNDI_NAME);
-	    		location = (ILocation)PortableRemoteObject.narrow(obj, ILocation.class); 
-			        
-	    		//if() {
-					//Client client = location.getClient(1);
-					List<Client> liste = location.getListeClients();
-					session.setAttribute("liste", liste.size());
+	    		location = (ILocation)PortableRemoteObject.narrow(obj, ILocation.class);
+			    
+	    		//Client client = location.getClientParIdentifiants(email,password); 
+	    		
+	    		//if(client != null) {
+	    		if(1 == 1) {
+					//session.setAttribute("liste", liste.size());
 					//location.ajouterClient(client);
-					/*List<Video> listeVideos = location.getListeVideos();
-					int indice = 1;
+					List<Video> listeVideos = location.getListeVideos();
 					
-					for(Video v : listeVideos) {
-						response.setContentType("text/html");
-						PrintWriter pw= response.getWriter();
-						pw.println(indice+") "+v.getTitre() + " - " + v.getDuree());
-						indice++;
-					}
-					request.setAttribute("location", location);*/
 					//session.setAttribute("client", client.getNom());
-					
-					//request.setAttribute("listeVideos", listeVideos);
+					request.setAttribute("listeVideos", listeVideos);
 					getServletContext().getRequestDispatcher("/listeVideos.jsp").forward(request, response);
-				/*}
+				}
 				else {
-					request.setAttribute("login", login);
+					request.setAttribute("email", email);
 					request.setAttribute("password", password);
 					request.setAttribute("erreur", "Login et/ou mot de passe incorrect");
 					getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
-				}*/
+				}
 			}catch(ClassCastException cce){
-				System.out.println("-----------------------------------------------------------");
 				cce.printStackTrace();
-				System.out.println("-----------------------------------------------------------");
 			}catch(NamingException ne){
-				System.out.println("-----------------------------------------------------------");
 				ne.printStackTrace();
-				System.out.println("-----------------------------------------------------------");
 			}
 		}
 	}

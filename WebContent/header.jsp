@@ -12,18 +12,15 @@
 		<div id="topBanner"></div> 
 		<div id="userpanel">
 			<% session = request.getSession();
-				String taille = (String) request.getAttribute("liste");
-				if(taille != null)
-					out.println("taille : "+taille);
 				String client = (String) session.getAttribute("client");
 				if(client == null) { %>
 				<form method="post" action="login">
 					<table>
 						<tr>
-							<td>Login : </td>
-							<td><input type="text" name="login" value="<% String login = (String) request.getAttribute("login");
-							if (login != null) {
-								out.println(login);
+							<td>Email : </td>
+							<td><input type="text" name="email" value="<% String email = (String) request.getAttribute("email");
+							if (email != null) {
+								out.println(email);
 							} %>"/>
 							<% String erreur = (String) request.getAttribute("erreur");
 					      	if (erreur != null) { %>
