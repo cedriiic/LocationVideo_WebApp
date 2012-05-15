@@ -78,4 +78,14 @@
     <servlet-name>detailFilm</servlet-name>
     <url-pattern>/detailFilm</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>categories</display-name>
+    <servlet-name>categories</servlet-name>
+    <servlet-class>servlets.Categories</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>categories</servlet-name>
+    <url-pattern>/categories</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -28,8 +28,9 @@ public class Historique extends HttpServlet {
 			session = request.getSession();
 			Client client = (Client) session.getAttribute("client");
 			location = ServiceJNDI.getBeanFromContext();
-			List<Location> listeLocations = location.getListeLocationsDuClient(client.getId());
+			List<Location> listeLocations = location.getListeLocationsDuClient(client.getId());			
 			request.setAttribute("listeLocations", listeLocations);
+			System.out.println("taille : "+listeLocations.size());
 			getServletContext().getRequestDispatcher("/historique.jsp").forward(request, response);
 		} catch(Exception e){
 			e.printStackTrace();

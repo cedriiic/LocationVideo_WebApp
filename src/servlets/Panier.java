@@ -44,16 +44,23 @@ public class Panier extends HttpServlet {
 			try {
 				int idVideo = Integer.parseInt(request.getParameter("idVideo"));
 				location = ServiceJNDI.getBeanFromContext();
-				Video video = location.getVideo(idVideo);
 				
-				panier.add(video);
+				boolean existeDansLePanier = false;
+				for(Video v : panier) {
+					if(v.getId() == idVideo)
+						existeDansLePanier = true;
+				}
 				
-				List<Video> listeVideos = location.getListeVideos();
-				request.setAttribute("listeVideos", listeVideos);
-				
+				if(existeDansLePanier)
+					request.setAttribute("message", "Vidéo déjà dans le panier !");
+				else {
+					Video video = location.getVideo(idVideo);
+					panier.add(video);
+					request.setAttribute("message", "Vidéo ajouté au panier !");
+				}
+					
 				session.setAttribute("panier", panier);
-				request.setAttribute("message", "Vidéo ajouté au panier !");
-				getServletContext().getRequestDispatcher("/listeVideos.jsp").forward(request, response);
+				getServletContext().getRequestDispatcher("/nouveautes").forward(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
 				request.setAttribute("message", e.getMessage());
@@ -64,12 +71,12 @@ public class Panier extends HttpServlet {
 			if(panier != null) {
 				int idVideo = Integer.parseInt(request.getParameter("idVideo"));
 				int i=0;
-
+				
 				while(i < panier.size() && panier.get(i).getId() != idVideo) {
 					i++;
 				}
-				
-				if(panier.get(i).getId() != idVideo)
+
+				if(panier.get(i).getId() == idVideo)
 					panier.remove(i);
 				
 				session.setAttribute("panier", panier);
