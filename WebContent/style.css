@@ -26,7 +26,26 @@ body {
 	width:100%;	
 }
 
+#tableVideos {
+	border: medium solid #6495ed;
+	border-collapse: collapse;
+	width: 100%;
+}
 
+#tableVideos th {
+	font-family: monospace;
+	border: thin solid #6495ed;
+	padding: 5px;
+	background-color: #D0E3FA;
+}
+
+#tableVideos td {
+	font-family: sans-serif;
+	border: thin solid #6495ed;
+	padding: 5px;
+	text-align: center;
+	background-color: #ffffff;
+}
 	
 					
 #wrapper {

@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-
+<%@page import="java.util.List" %>
+<%@page import="fr.epsi.location.pojo.Client" %>
+<%@page import="fr.epsi.location.pojo.Video" %>
+<%@page import="fr.epsi.location.pojo.Location" %>
+<%@page import="fr.epsi.location.pojo.Categorie" %>
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -11,17 +16,23 @@
 	<div id="topWrapper"> 
 		<div id="topBanner"></div> 
 		<div id="userpanel">
-			<% session = request.getSession();
-				String client = (String) session.getAttribute("client");
-				if(client == null) { %>
+			<% 
+				session = request.getSession();
+				Client client = (Client) session.getAttribute("client");
+				List<Video> panier = (List<Video>) session.getAttribute("panier");
+				if(client == null) {
+			%>
 				<form method="post" action="login">
-					<table>
+					<table id="connexion">
 						<tr>
 							<td>Email : </td>
 							<td><input type="text" name="email" value="<% String email = (String) request.getAttribute("email");
 							if (email != null) {
 								out.println(email);
-							} %>"/>
+							}
+							else {
+								out.println("cedric@epsi.fr");
+							}%>"/>
 							<% String erreur = (String) request.getAttribute("erreur");
 					      	if (erreur != null) { %>
 					           	<strong><span style="color:red; font-weight:bold;"><%=erreur %></span></strong>
@@ -33,7 +44,10 @@
 							<td><input type="password" name="password" value="<% String password = (String) request.getAttribute("password");
 							if(password != null) {
 								out.println(password);
-							} %>"/></td>
+							}
+							else {
+								out.println("cedric");
+							}%>"/></td>
 						</tr> 
 						<tr>
 							<td><a href="formulaireInscription.jsp">Créer un compte</a></td>
@@ -43,15 +57,24 @@
 				</form>
 			<% }
 			else { %>
-				Bienvenue, <strong><%=client %></strong><br /><br />
-				<table>
-					<tr>
-						<td>Mon panier : X élément(s)</td>
-					</tr>
-					<tr>
-						<td><a href="panier">Voir le panier</a></td>
-					</tr>
-				</table>
+				<form method="post" action="deconnexion">
+					<table>
+						<tr>
+							<td>Bienvenue, <strong><%=client.getPrenom() %></strong><br /></td>
+							<td><input type="submit" value="Déconnexion" /></td>
+						<tr>
+							<td>Mon panier :</td>
+							<td><%= (panier != null)?panier.size():0 %> élément(s)</td>
+						</tr>
+						<tr>
+							<td><a href="panier">Voir le panier</a></td>
+							<td align="left"><a href="historique">Mon historique</a></td>
+						</tr>
+						<tr>
+							<td colspan="2"></td>
+						</tr>
+					</table>
+				</form>			
 			<% } %>
 		</div>
 	</div>  
@@ -79,11 +102,4 @@
 		<div id="container"> 
 			<div id="content"> 
 				<div style="margin-top:20px;">
-					<% for(int filmNouveaute = 0; filmNouveaute < 4; filmNouveaute++) { %>
-						<div class="one_fourth"> 
-							<div class="bloc rounded"> 
-								<h3>blabla</h3>  
-								<p><img src="images/affiches/battleship.jpg" style="float:right;margin:0 0 0 8px" /></p> 
-							</div> 
-						</div>  
-					<% } %> 
+					<br />
