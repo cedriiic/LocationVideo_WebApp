@@ -10,7 +10,7 @@ List<Video> listeVideos = (List<Video>) request.getAttribute("listeVideos"); %>
 <h1>Nouveautés</h1>
 	<% String message = (String) request.getAttribute("message"); 
 		if(message != null) { %>
-			<span style="font-weigh:bold; color:#3A9D23"><%= message %></span><br /><br />		
+			<%= message %><br /><br />		
 	<%	} %>
 	
 	<table id="tableVideos">

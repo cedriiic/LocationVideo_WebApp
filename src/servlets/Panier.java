@@ -25,8 +25,11 @@ public class Panier extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String etape = request.getParameter("etape");
+		String typePaiement = request.getParameter("typePaiement");
 		
 		request.setAttribute("etape", etape);
+		if(typePaiement != null)
+			request.setAttribute("typePaiement", typePaiement);
 		getServletContext().getRequestDispatcher("/panier.jsp").forward(request, response);
 	}
 
@@ -52,18 +55,18 @@ public class Panier extends HttpServlet {
 				}
 				
 				if(existeDansLePanier)
-					request.setAttribute("message", "Vidéo déjà dans le panier !");
+					request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">Vidéo déjà dans le panier !</span>");
 				else {
 					Video video = location.getVideo(idVideo);
 					panier.add(video);
-					request.setAttribute("message", "Vidéo ajouté au panier !");
+					request.setAttribute("message", "<span style=\"font-weigh:bold; color:#3A9D23; font-size:18px\">Vidéo ajouté au panier !</span>");
 				}
 					
 				session.setAttribute("panier", panier);
 				getServletContext().getRequestDispatcher("/nouveautes").forward(request, response);
 			}catch(Exception e){
 				e.printStackTrace();
-				request.setAttribute("message", e.getMessage());
+				request.setAttribute("message", "<span style=\"font-weigh:bold; color:#3A9D23; font-size:18px\">"+e.getMessage()+"</span>");
 				getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 		}
@@ -80,7 +83,7 @@ public class Panier extends HttpServlet {
 					panier.remove(i);
 				
 				session.setAttribute("panier", panier);
-				request.setAttribute("message", "Vidéo supprimé du panier!");
+				request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">Vidéo supprimé du panier!</span>");
 				getServletContext().getRequestDispatcher("/panier.jsp").forward(request, response);
 			} 
 		}

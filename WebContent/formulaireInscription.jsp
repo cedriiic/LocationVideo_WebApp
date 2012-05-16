@@ -13,12 +13,10 @@
 	String password2		= request.getParameter("password2");
 	String email			= request.getParameter("email");
 	String message 			= (String) request.getAttribute("message");
-	String etatInsertion	= request.getParameter("etatInsertion");
-	//List<String[]> message = (List<String[]>) request.getAttribute("message");
-	if(etatInsertion == null || etatInsertion.equals("erreur")) {
+	String etatInsertion	= (String) request.getAttribute("etatInsertion");
 %>
-
-		<h1>Création de compte</h1>
+	<h1>Création de compte</h1>
+<%	if(etatInsertion == null || etatInsertion.equals("erreur")) { %>
 		
 		<% if(message != null) { %>
 			<span style="color:red; font-size:18px; font-weight:bold;"><%=message %></span><br /><br />
@@ -89,7 +87,6 @@
 		</form>
 <% 	}
 	else { %>
-	<h1>aze</h1>
 	<%=message %><br /><br />
 	<a href="index.jsp">Retour à l'accueil</a>
 <%	}

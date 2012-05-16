@@ -88,4 +88,14 @@
     <servlet-name>categories</servlet-name>
     <url-pattern>/categories</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>reglement</display-name>
+    <servlet-name>reglement</servlet-name>
+    <servlet-class>servlets.Reglement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>reglement</servlet-name>
+    <url-pattern>/reglement</url-pattern>
+  </servlet-mapping>
 </web-app>

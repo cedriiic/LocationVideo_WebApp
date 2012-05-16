@@ -38,11 +38,9 @@ public class Login extends HttpServlet {
 				location = ServiceJNDI.getBeanFromContext();
 	    		Client client = location.getClientParIdentifiants(email,password); 
 				if(client != null) {
-					//List<Video> listeVideos = location.getListeVideos();
 					session = request.getSession();
 					session.setAttribute("client", client);
-					//request.setAttribute("listeVideos", listeVideos);
-					System.out.println("coucou1");
+					
 					request.getRequestDispatcher("nouveautes").forward(request, response);
 				}
 				else {
@@ -55,7 +53,7 @@ public class Login extends HttpServlet {
 				e.printStackTrace();
 				request.setAttribute("email", email);
 				request.setAttribute("password", password);
-				request.setAttribute("message", e.getMessage());
+				request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">"+e.getMessage()+"</span>");
 				getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 			}
 		}

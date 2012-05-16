@@ -60,7 +60,7 @@ public class Categories extends HttpServlet {
 		}
 		catch(Exception e){
 			e.printStackTrace();
-			request.setAttribute("message", "message");
+			request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">"+e.getMessage()+"</span>");
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}

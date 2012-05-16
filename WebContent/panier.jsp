@@ -8,7 +8,7 @@
 String etape = (String) request.getAttribute("etape");  
 if(etape == null) { %>
 <h1>Mon panier</h1>
-	<% String message = request.getParameter("message");
+	<% String message = (String) request.getAttribute("message");
 	if(message != null) { %>
 		<span style="font-weigh:bold; color:#3A9D23"><%= message %></span>
 	<% } 
@@ -50,15 +50,21 @@ else if(etape.equals("2")){
 
 %>
 	<h1>Moyen de paiement</h1>
-	<form method="post" action="panier">
+	<form method="get" action="panier">
+		<input type="hidden" name="etape" value="3">
 		<strong>Total : <span style="color:#3A9D23"><%= total %> euros</span></strong><br /><br />
-		<input type="radio" name="choix" value="CB" id="CB" /> <label for="CB">Carte bancaire</label><br /><br />
-	    <input type="radio" name="choix" value="VideoClub" id="VideoClub" /> <label for="VideoClub">Carte VideoClub</label><br /><br />
+		<input type="radio" name="typePaiement" value="Carte Bancaire" id="Carte Bancaire" /> <label for="CB">Carte bancaire</label><br /><br />
+	    <input type="radio" name="typePaiement" value="Carte Video Club" id="Carte Video Club" /> <label for="VideoClub">Carte VideoClub</label><br /><br />
 	    <input type="submit" value="Valider" />
 	</form>
 <% }
 else if(etape.equals("3")) {
-
-
+	String typePaiement = (String) request.getAttribute("typePaiement"); %>	
+	<% if(typePaiement.equals("Carte Bancaire")) { %>
+		<%@ include file="/paiementCarteBancaire.jsp" %>			
+	<% }
+	else { %>
+		<%@ include file="/paiementCarteVideoClub.jsp" %>
+	<% } 
 } %>
 <%@ include file="/footer.jsp" %>

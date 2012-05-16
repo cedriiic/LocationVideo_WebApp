@@ -22,6 +22,7 @@ public class Deconnexion extends HttpServlet {
 		
 		session = request.getSession();
 		session.removeAttribute("client");
+		session.removeAttribute("panier");
 		getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 	}
 

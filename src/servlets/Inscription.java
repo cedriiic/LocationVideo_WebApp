@@ -54,7 +54,7 @@ public class Inscription extends HttpServlet {
 	    		location.ajouterClient(client);
 	    		
 	    		request.setAttribute("etatInsertion", "ok");
-	    		request.setAttribute("message", "Inscription effectuée.");
+	    		request.setAttribute("message", "<span style=\"font-weigh:bold; color:#3A9D23; font-size:18px\">Inscription effectuée.<br />Vous pouvez vous connecter.</span>");
 	    		getServletContext().getRequestDispatcher("/formulaireInscription.jsp").forward(request, response);
 			}
 			catch(Exception e) {
@@ -71,7 +71,7 @@ public class Inscription extends HttpServlet {
 				request.setAttribute("password2", password2);
 				request.setAttribute("email", email);
 				request.setAttribute("etatInsertion", "erreur");
-				request.setAttribute("message", message);
+				request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">"+message+"</span>");
 			}
 		}
 		else {
@@ -87,7 +87,7 @@ public class Inscription extends HttpServlet {
 			request.setAttribute("password2", password2);
 			request.setAttribute("email", email);
 			request.setAttribute("etatInsertion", "erreur");
-			request.setAttribute("message", message);
+			request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">"+message+"</span>");
 			getServletContext().getRequestDispatcher("/formulaireInscription.jsp").forward(request, response);
 		}
 	}

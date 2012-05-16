@@ -34,7 +34,7 @@ public class Historique extends HttpServlet {
 			getServletContext().getRequestDispatcher("/historique.jsp").forward(request, response);
 		} catch(Exception e){
 			e.printStackTrace();
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">"+e.getMessage()+"</span>");
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}

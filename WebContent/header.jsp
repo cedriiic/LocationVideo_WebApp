@@ -29,9 +29,6 @@
 							<td><input type="text" name="email" value="<% String email = (String) request.getAttribute("email");
 							if (email != null) {
 								out.println(email);
-							}
-							else {
-								out.println("cedric@epsi.fr");
 							}%>"/>
 							<% String erreur = (String) request.getAttribute("erreur");
 					      	if (erreur != null) { %>
@@ -44,9 +41,6 @@
 							<td><input type="password" name="password" value="<% String password = (String) request.getAttribute("password");
 							if(password != null) {
 								out.println(password);
-							}
-							else {
-								out.println("cedric");
 							}%>"/></td>
 						</tr> 
 						<tr>
@@ -89,9 +83,6 @@
 			</li>
 			<li>
 				<a href="categories" shape="rect">Catégories</a>
-			</li>
-			<li>
-				<a href="top10" shape="rect">TOP 10</a>
 			</li>
 		</ul> 
 	</div>

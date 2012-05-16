@@ -30,7 +30,7 @@ public class DetailFilm extends HttpServlet {
 		}
 		catch(Exception e) {
 			e.printStackTrace();
-			request.setAttribute("message", e.getMessage());
+			request.setAttribute("message", "<span style=\"font-weight:bold; color:red; font-size:18px\">"+e.getMessage()+"</span>");
 			getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 		}
 	}
