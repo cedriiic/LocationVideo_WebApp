@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
+
 import fr.epsi.location.pojo.Client;
 import fr.epsi.location.remote.ILocation;
 
@@ -48,7 +50,7 @@ public class Inscription extends HttpServlet {
 		if(message == null) {
 			
 			try{
-				Date datedenaissance 	= convertStringToDate(sDatedenaissance);
+				DateTime datedenaissance 	= new DateTime(sDatedenaissance);
 				location = ServiceJNDI.getBeanFromContext();
 	    		Client client = new Client(nom, prenom, datedenaissance, adresse, ville, codepostal, pays, telephone, email, password, null);
 	    		location.ajouterClient(client);
@@ -101,7 +103,7 @@ public class Inscription extends HttpServlet {
 		return null;
 	}
 
-	private Date convertStringToDate(String sDatedenaissance) {
+	/*private Date convertStringToDate(String sDatedenaissance) {
 		if(sDatedenaissance.length() == 10) {
 			int jour = Integer.valueOf(sDatedenaissance.substring(0, 2)).intValue();
 			int mois = Integer.valueOf(sDatedenaissance.substring(3, 5)).intValue();
@@ -111,6 +113,6 @@ public class Inscription extends HttpServlet {
 		}
 		else
 			return null;
-	}
+	}*/
 
 }
