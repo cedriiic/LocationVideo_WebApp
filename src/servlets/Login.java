@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -49,7 +51,7 @@ public class Login extends HttpServlet {
 					request.setAttribute("erreur", "Login et/ou mot de passe incorrect");
 					getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 				}
-			}catch(Exception e){
+			}catch(UndeclaredThrowableException e){
 				e.printStackTrace();
 				request.setAttribute("email", email);
 				request.setAttribute("password", password);

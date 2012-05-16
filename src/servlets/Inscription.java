@@ -50,9 +50,8 @@ public class Inscription extends HttpServlet {
 		if(message == null) {
 			
 			try{
-				DateTime datedenaissance 	= new DateTime(sDatedenaissance);
 				location = ServiceJNDI.getBeanFromContext();
-	    		Client client = new Client(nom, prenom, datedenaissance, adresse, ville, codepostal, pays, telephone, email, password, null);
+	    		Client client = new Client(nom, prenom, convertStringToDate(sDatedenaissance), adresse, ville, codepostal, pays, telephone, email, password, null);
 	    		location.ajouterClient(client);
 	    		
 	    		request.setAttribute("etatInsertion", "ok");
@@ -103,7 +102,7 @@ public class Inscription extends HttpServlet {
 		return null;
 	}
 
-	/*private Date convertStringToDate(String sDatedenaissance) {
+	private Date convertStringToDate(String sDatedenaissance) {
 		if(sDatedenaissance.length() == 10) {
 			int jour = Integer.valueOf(sDatedenaissance.substring(0, 2)).intValue();
 			int mois = Integer.valueOf(sDatedenaissance.substring(3, 5)).intValue();
@@ -113,6 +112,6 @@ public class Inscription extends HttpServlet {
 		}
 		else
 			return null;
-	}*/
+	}
 
 }

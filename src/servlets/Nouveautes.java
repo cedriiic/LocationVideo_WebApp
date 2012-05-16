@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.lang.reflect.UndeclaredThrowableException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -41,7 +42,7 @@ public class Nouveautes extends HttpServlet{
     		
     		getServletContext().getRequestDispatcher("/nouveautes.jsp").forward(request, response);
 		}
-		catch(Exception e){
+		catch(UndeclaredThrowableException e){
 			e.printStackTrace();
 		}
 	}

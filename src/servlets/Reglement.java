@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.joda.time.DateTime;
+
 import com.arjuna.ats.arjuna.recovery.Service;
 
 import fr.epsi.location.pojo.Client;
@@ -46,10 +48,7 @@ public class Reglement extends HttpServlet {
 				 int indice = (int) Math.floor((Math.random() * listeExemplaires.size()));
 				 Exemplaire exemplaire = listeExemplaires.get(indice);
 				 			 
-				 java.util.Date dateDuJour = new java.util.Date();
-				 long t = dateDuJour.getTime();
-				 java.sql.Date sqlDateDuJour = new java.sql.Date(t);
-				 Location l = new Location(exemplaire, sqlDateDuJour, v.getPrix(), 24, tp);
+				 Location l = new Location(exemplaire, new DateTime(), v.getPrix(), 24, tp);
 				 Client client = (Client) session.getAttribute("client");
 				 l.setClient(client);
 				 location.ajouterLocation(l);
